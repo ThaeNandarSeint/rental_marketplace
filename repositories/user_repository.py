@@ -1,10 +1,10 @@
-from sqlalchemy.orm import Session
+from database import SessionLocal
 from models.user_model import User
 from schemas.user_schema import UserCreate, UserUpdate
 
 class UserRepository:
-    def __init__(self, db: Session):
-        self.db = db
+    def __init__(self):
+        self.db = SessionLocal()
 
     def get_all(self):
         data = self.db.query(User).all()

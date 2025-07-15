@@ -4,9 +4,9 @@ from repositories.user_repository import UserRepository
 from services.password_service import PasswordService
 
 class UserService:
-    def __init__(self, password_service: PasswordService, repository: UserRepository):
-        self.repository = repository
-        self.password_service = password_service
+    def __init__(self):
+        self.repository = UserRepository()
+        self.password_service = PasswordService()
 
     def get_users(self):
         return self.repository.get_all()

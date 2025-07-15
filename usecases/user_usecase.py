@@ -1,15 +1,19 @@
+from fastapi import HTTPException
 from services.user_service import UserService
 from schemas.user_schema import UserCreate, UserUpdate
 
 class UserUseCase:
-    def __init__(self, service: UserService):
-        self.service = service
+    def __init__(self):
+        self.service = UserService()
 
     def get_users(self):
         return self.service.get_users()
 
     def get_user_by_id(self, user_id: int):
-        return self.service.get_user(user_id)
+        data = self.service.get_user(user_id)
+        if not data:
+            raise HTTPException(status_code=400, detail="User not found")
+        return data
 
     def create_user(self, user: UserCreate):
         return self.service.create_user(user)

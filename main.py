@@ -1,12 +1,10 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, APIRouter
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from database import engine, Base
 from controllers import auth_controller, user_controller
+from middlewares.auth_middleware import AuthMiddleware
 
 app = FastAPI()
-
-Base.metadata.create_all(bind=engine)
 
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
@@ -27,5 +25,10 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
         }
     )
 
-app.include_router(auth_controller.router)
-app.include_router(user_controller.router)
+app.add_middleware(AuthMiddleware)
+
+api_router = APIRouter(prefix="/api")
+api_router.include_router(auth_controller.router)
+api_router.include_router(user_controller.router)
+
+app.include_router(api_router)

@@ -6,10 +6,10 @@ from services.password_service import PasswordService
 from services.jwt_service import JWTService
 
 class AuthUseCase:
-    def __init__(self, user_service: UserService, password_service: PasswordService, jwt_service: JWTService):
-        self.user_service = user_service
-        self.password_service = password_service
-        self.jwt_service = jwt_service
+    def __init__(self):
+        self.user_service = UserService()
+        self.password_service = PasswordService()
+        self.jwt_service = JWTService()
 
     def register(self, data: Register):
         user = self.user_service.create_user(data)
