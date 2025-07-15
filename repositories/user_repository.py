@@ -1,6 +1,6 @@
 from database import SessionLocal
 from models.user_model import User
-from schemas.user_schema import UserCreate, UserUpdate
+from schemas.user_schema import CreateUser, UpdateUser
 
 class UserRepository:
     def __init__(self):
@@ -24,14 +24,14 @@ class UserRepository:
         
         return self.db.query(User).filter(model_field == value).first()
 
-    def create(self, user: UserCreate):
+    def create(self, user: CreateUser):
         db_user = User(**user)
         self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)
         return db_user
 
-    def update(self, user_id: int, user: UserUpdate):
+    def update(self, user_id: int, user: UpdateUser):
         db_user = self.get_by_id(user_id)
         if db_user:
             db_user.name = user.name

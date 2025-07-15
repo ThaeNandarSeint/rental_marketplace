@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from schemas.user_schema import UserBase, UserOut
+from schemas.user_schema import BaseUser, User
 
 class Login(BaseModel):
     email: EmailStr
@@ -7,11 +7,11 @@ class Login(BaseModel):
 
 class LoginResponse(BaseModel):
     token: str
-    user: UserOut
+    user: User
 
-class Register(UserBase):
+class Register(BaseUser):
     pass
 
 class RegisterResponse(BaseModel):
     token: str
-    user: UserOut
+    user: User

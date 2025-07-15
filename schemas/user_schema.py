@@ -1,22 +1,24 @@
 from pydantic import BaseModel, EmailStr
 
-class UserBase(BaseModel):
+class BaseUser(BaseModel):
     name: str
     email: EmailStr
     password: str
 
-class UserCreate(UserBase):
+class CreateUser(BaseUser):
     pass
 
-class UserUpdate(UserBase):
+class UpdateUser(BaseUser):
     pass
 
-class UserOut(UserBase):
+class User(BaseUser):
     id: int
 
-    class Config:
-        orm_mode = True
-
 class GetUsersResponse(BaseModel):
-    data: list[UserOut]
+    data: list[User]
     count: int
+
+class GetUsersDto(BaseModel):
+    skip: int
+    limit: int
+    search: str
