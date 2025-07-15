@@ -7,13 +7,25 @@ class UserRepository:
         self.db = db
 
     def get_all(self):
-        return self.db.query(User).all()
+        data = self.db.query(User).all()
+        count = self.db.query(User).count()
+        return {
+            "data": data,
+            "count": count
+        }
 
     def get_by_id(self, user_id: int):
         return self.db.query(User).filter(User.id == user_id).first()
+    
+    def find_one(self, field: str, value):
+        model_field = getattr(User, field, None)
+        if model_field is None:
+            raise ValueError(f"Invalid field: {field}")
+        
+        return self.db.query(User).filter(model_field == value).first()
 
     def create(self, user: UserCreate):
-        db_user = User(**user.dict())
+        db_user = User(**user)
         self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)
