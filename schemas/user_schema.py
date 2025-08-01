@@ -1,10 +1,17 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
+from enum import Enum
+
+class RegisterUserType(str, Enum):
+    OWNER = "owner"
+    TENANT = "tenant"
 
 class BaseUser(BaseModel):
     name: str
     email: EmailStr
     password: str
+    phone_number: str
+    type: RegisterUserType
 
 class CreateUser(BaseUser):
     pass

@@ -1,8 +1,15 @@
 from fastapi import FastAPI, Request, APIRouter
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from controllers import auth_controller, user_controller
+from fastapi.exceptions import RequestValidationError 
+from controllers import auth_controller, user_controller, tenant_controller, owner_controller
 from middlewares.auth_middleware import AuthMiddleware
+from models.user_model import User
+from models.tenant_model import Tenant
+from models.owner_model import Owner
+from database import Base, engine
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -25,10 +32,31 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
         }
     )
 
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    errors = exc.errors()
+    messages = []
+    for err in errors:
+        loc = err.get("loc", [])
+        field = loc[-1] if loc else "field"
+        msg = err.get("msg", "")
+        messages.append(f"{field}: {msg}")
+
+    return JSONResponse(
+        status_code=400,
+        content={
+            "message": messages,
+            "error": "Bad Request",
+            "statusCode": 400
+        }
+    )
+
 app.add_middleware(AuthMiddleware)
 
 api_router = APIRouter(prefix="/api")
 api_router.include_router(auth_controller.router)
 api_router.include_router(user_controller.router)
+api_router.include_router(tenant_controller.router)
+api_router.include_router(owner_controller.router)
 
 app.include_router(api_router)

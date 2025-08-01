@@ -1,5 +1,6 @@
 from database import SessionLocal
 from models.user_model import User
+from sqlalchemy.orm import joinedload
 from schemas.user_schema import CreateUser, GetUsersDto, UpdateUser
 
 class UserRepository:
@@ -7,12 +8,13 @@ class UserRepository:
         self.db = SessionLocal()
 
     def get_all(self, queries: GetUsersDto):
-        dbQuery = self.db.query(User)
+        dbQuery = self.db.query(User).options(joinedload(User.tenant))
 
-        search = f"%{queries.search}%"
-        dbQuery = dbQuery.filter(
-            (User.name.ilike(search)) | (User.email.ilike(search))
-        )
+        if queries.search:
+            search = f"%{queries.search}%"
+            dbQuery = dbQuery.filter(
+                (User.name.ilike(search)) | (User.email.ilike(search))
+            )
 
         data = dbQuery.offset(queries.skip).limit(queries.limit).all()
         count = dbQuery.count()

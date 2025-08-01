@@ -10,7 +10,7 @@ class LoginResponse(BaseModel):
     user: User
 
 class Register(BaseUser):
-    pass
+   pass
 
 class RegisterResponse(BaseModel):
     token: str
