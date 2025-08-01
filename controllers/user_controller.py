@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Depends
-from schemas.user_schema import GetUsersResponse, CreateUser, User, UpdateUser
+from fastapi import APIRouter, Depends, Query 
+from typing import Optional
+from schemas.user_schema import CreateUser, GetUsersDto, GetUsersResponse, UpdateUser, User
 from usecases.user_usecase import UserUseCase
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -7,9 +8,16 @@ router = APIRouter(prefix="/users", tags=["Users"])
 def get_usecase():
     return UserUseCase()
 
+def get_queries(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100),
+    search: Optional[str] = Query(None)
+) -> GetUsersDto:
+    return GetUsersDto(skip=skip, limit=limit, search=search)
+
 @router.get("/", response_model=GetUsersResponse)
-def get_users(usecase: UserUseCase = Depends(get_usecase)):
-    return usecase.get_users()
+def get_users(queries: GetUsersDto = Depends(get_queries),usecase: UserUseCase = Depends(get_usecase)):
+    return usecase.get_users(queries)
 
 @router.get("/{id}", response_model=User)
 def get_user(id: int, usecase: UserUseCase = Depends(get_usecase)):

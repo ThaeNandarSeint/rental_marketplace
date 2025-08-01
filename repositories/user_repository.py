@@ -1,14 +1,21 @@
 from database import SessionLocal
 from models.user_model import User
-from schemas.user_schema import CreateUser, UpdateUser
+from schemas.user_schema import CreateUser, GetUsersDto, UpdateUser
 
 class UserRepository:
     def __init__(self):
         self.db = SessionLocal()
 
-    def get_all(self):
-        data = self.db.query(User).all()
-        count = self.db.query(User).count()
+    def get_all(self, queries: GetUsersDto):
+        dbQuery = self.db.query(User)
+
+        search = f"%{queries.search}%"
+        dbQuery = dbQuery.filter(
+            (User.name.ilike(search)) | (User.email.ilike(search))
+        )
+
+        data = dbQuery.offset(queries.skip).limit(queries.limit).all()
+        count = dbQuery.count()
         return {
             "data": data,
             "count": count

@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from schemas.user_schema import CreateUser, UpdateUser
+from schemas.user_schema import CreateUser, GetUsersDto, UpdateUser
 from repositories.user_repository import UserRepository
 from services.password_service import PasswordService
 
@@ -8,8 +8,8 @@ class UserService:
         self.repository = UserRepository()
         self.password_service = PasswordService()
 
-    def get_users(self):
-        return self.repository.get_all()
+    def get_users(self, queries: GetUsersDto):
+        return self.repository.get_all(queries)
 
     def get_user(self, user_id: int):
         return self.repository.get_by_id(user_id)
