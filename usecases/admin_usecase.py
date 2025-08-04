@@ -18,9 +18,9 @@ class AdminUseCase:
         return data
 
     def create_admin(self, data: CreateAdmin):
-        data.type = 'admin'
-        user = self.user_service.create_user(data)
-        return self.service.create_admin({'user_id': user.id})
+        data.user.type = 'admin'
+        user = self.user_service.create_user(data.user)
+        return self.service.create_admin({'user_id': user.id, 'role_id': data.role_id})
 
     def update_admin(self, id: int, data: UpdateAdmin):
         return self.service.update_admin(id, data)

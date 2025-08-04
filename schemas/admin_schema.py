@@ -1,12 +1,18 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 from typing import Optional
 from schemas.user_schema import BaseUser
+from schemas.role_schema import BaseRole
 
 class BaseAdmin(BaseModel):
     user_id: int
+    role_id: int
 
-class CreateAdmin(BaseUser):
-    type: Optional[str] = None
+class AdminUser(BaseUser):
+    type: Optional[str]
+
+class CreateAdmin(BaseModel):
+    user: AdminUser
+    role_id: int
 
 class UpdateAdmin(BaseAdmin):
     pass
@@ -14,6 +20,7 @@ class UpdateAdmin(BaseAdmin):
 class Admin(BaseAdmin):
     id: int
     user: Optional[BaseUser]
+    role: Optional[BaseRole]
 
 class GetAdminsResponse(BaseModel):
     data: list[Admin]

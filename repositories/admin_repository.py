@@ -8,7 +8,7 @@ class AdminRepository:
         self.db = SessionLocal()
 
     def get_all(self, queries: GetAdminsDto):
-        dbQuery = self.db.query(Admin).options(joinedload(Admin.user))
+        dbQuery = self.db.query(Admin).options(joinedload(Admin.user), joinedload(Admin.role))
 
         # search = f"%{queries.search}%"
         # dbQuery = dbQuery.filter(
