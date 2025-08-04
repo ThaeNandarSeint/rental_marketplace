@@ -7,11 +7,7 @@ class TenantUseCase:
         self.service = TenantService()
 
     def get_tenants(self, queries: GetTenantsDto):
-        result = self.service.get_tenants(queries)
-        print("-----------------------------------")
-        print(result)
-        print("-----------------------------------")
-        return result
+        return self.service.get_tenants(queries)
 
     def get_tenant_by_id(self, id: int):
         data = self.service.get_tenant(id)

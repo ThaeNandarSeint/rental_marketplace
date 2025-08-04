@@ -18,6 +18,6 @@ class User(Base):
     phone_number = Column(String, index=True)
     type = Column(String, nullable=False)
 
-    # admin = relationship("Admin", uselist=False, back_populates="user")
     tenant = relationship("Tenant", back_populates="user", uselist=False)
     owner = relationship("Owner", back_populates="user", uselist=False)
+    admin = relationship("Admin", back_populates="user", uselist=False)

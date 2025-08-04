@@ -17,6 +17,9 @@ class AuthUseCase:
         self.jwt_service = JWTService()
 
     def register(self, data: Register):
+        if data.type != RegisterUserType.TENANT and data.type != RegisterUserType.OWNER:
+            raise HTTPException(status_code=400, detail="User type should be 'tenant' or 'owner'")
+
         user = self.user_service.create_user(data)
 
         if data.type == RegisterUserType.TENANT:

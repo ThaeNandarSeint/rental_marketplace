@@ -5,6 +5,7 @@ from enum import Enum
 class RegisterUserType(str, Enum):
     OWNER = "owner"
     TENANT = "tenant"
+    ADMIN = 'admin'
 
 class BaseUser(BaseModel):
     name: str
