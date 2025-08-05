@@ -25,12 +25,12 @@ def get_admin(id: int, usecase: AdminUseCase = Depends(get_usecase)):
     return usecase.get_admin_by_id(id)
 
 @router.post("/", response_model=Admin)
-def create_admin(admin: CreateAdmin, usecase: AdminUseCase = Depends(get_usecase)):
-    return usecase.create_admin(admin)
+def create_admin(data: CreateAdmin, usecase: AdminUseCase = Depends(get_usecase)):
+    return usecase.create_admin(data)
 
 @router.patch("/{id}", response_model=Admin)
-def update_admin(id: int, admin: UpdateAdmin, usecase: AdminUseCase = Depends(get_usecase)):
-    return usecase.update_admin(id, admin)
+def update_admin(id: int, data: UpdateAdmin, usecase: AdminUseCase = Depends(get_usecase)):
+    return usecase.update_admin(id, data)
 
 @router.delete("/{id}", response_model=Admin)
 def delete_admin(id: int, usecase: AdminUseCase = Depends(get_usecase)):

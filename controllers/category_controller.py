@@ -16,21 +16,21 @@ def get_queries(
     return GetCategoriesDto(skip=skip, limit=limit, search=search)
 
 @router.get("/", response_model=GetCategoriesResponse)
-def get_Categorys(queries: GetCategoriesDto = Depends(get_queries),usecase: CategoryUseCase = Depends(get_usecase)):
-    return usecase.get_Categorys(queries)
+def get_categories(queries: GetCategoriesDto = Depends(get_queries),usecase: CategoryUseCase = Depends(get_usecase)):
+    return usecase.get_categories(queries)
 
 @router.get("/{id}", response_model=Category)
-def get_Category(id: int, usecase: CategoryUseCase = Depends(get_usecase)):
-    return usecase.get_Category_by_id(id)
+def get_category(id: int, usecase: CategoryUseCase = Depends(get_usecase)):
+    return usecase.get_category_by_id(id)
 
 @router.post("/", response_model=Category)
-def create_Category(Category: CreateCategory, usecase: CategoryUseCase = Depends(get_usecase)):
-    return usecase.create_Category(Category)
+def create_category(data: CreateCategory, usecase: CategoryUseCase = Depends(get_usecase)):
+    return usecase.create_category(data)
 
 @router.patch("/{id}", response_model=Category)
-def update_Category(id: int, Category: UpdateCategory, usecase: CategoryUseCase = Depends(get_usecase)):
-    return usecase.update_Category(id, Category)
+def update_category(id: int, data: UpdateCategory, usecase: CategoryUseCase = Depends(get_usecase)):
+    return usecase.update_category(id, data)
 
 @router.delete("/{id}", response_model=Category)
-def delete_Category(id: int, usecase: CategoryUseCase = Depends(get_usecase)):
-    return usecase.delete_Category(id)
+def delete_category(id: int, usecase: CategoryUseCase = Depends(get_usecase)):
+    return usecase.delete_category(id)

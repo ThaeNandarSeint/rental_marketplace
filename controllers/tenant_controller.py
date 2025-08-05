@@ -24,12 +24,12 @@ def get_tenant(id: int, usecase: TenantUseCase = Depends(get_usecase)):
     return usecase.get_tenant_by_id(id)
 
 @router.post("/", response_model=Tenant)
-def create_tenant(tenant: CreateTenant, usecase: TenantUseCase = Depends(get_usecase)):
-    return usecase.create_tenant(tenant)
+def create_tenant(data: CreateTenant, usecase: TenantUseCase = Depends(get_usecase)):
+    return usecase.create_tenant(data)
 
 @router.patch("/{id}", response_model=Tenant)
-def update_tenant(id: int, tenant: UpdateTenant, usecase: TenantUseCase = Depends(get_usecase)):
-    return usecase.update_tenant(id, tenant)
+def update_tenant(id: int, data: UpdateTenant, usecase: TenantUseCase = Depends(get_usecase)):
+    return usecase.update_tenant(id, data)
 
 @router.delete("/{id}", response_model=Tenant)
 def delete_tenant(id: int, usecase: TenantUseCase = Depends(get_usecase)):

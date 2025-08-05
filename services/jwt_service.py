@@ -10,7 +10,7 @@ class JWTService:
     @staticmethod
     def create_token(data: dict, expires_in_minutes: int = EXPIRE_TIME) -> str:
         payload = data.copy()
-        payload["exp"] = datetime.datetime.utcnow() + datetime.timedelta(minutes=expires_in_minutes)
+        payload["exp"] = datetime.datetime.utcnow() + datetime.timedelta(expires_in_minutes)
         return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
     @staticmethod

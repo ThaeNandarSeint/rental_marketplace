@@ -9,17 +9,17 @@ class UserUseCase:
     def get_users(self, queries: GetUsersDto):
         return self.service.get_users(queries)
 
-    def get_user_by_id(self, user_id: int):
-        data = self.service.get_user(user_id)
+    def get_user_by_id(self, id: int):
+        data = self.service.get_user(id)
         if not data:
             raise HTTPException(status_code=400, detail="User not found")
         return data
 
-    def create_user(self, user: CreateUser):
-        return self.service.create_user(user)
+    def create_user(self, data: CreateUser):
+        return self.service.create_user(data)
 
-    def update_user(self, user_id: int, user: UpdateUser):
-        return self.service.update_user(user_id, user)
+    def update_user(self, id: int, data: UpdateUser):
+        return self.service.update_user(id, data)
 
-    def delete_user(self, user_id: int):
-        return self.service.delete_user(user_id)
+    def delete_user(self, id: int):
+        return self.service.delete_user(id)

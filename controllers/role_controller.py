@@ -24,12 +24,12 @@ def get_role(id: int, usecase: RoleUseCase = Depends(get_usecase)):
     return usecase.get_role_by_id(id)
 
 @router.post("/", response_model=Role)
-def create_role(Role: CreateRole, usecase: RoleUseCase = Depends(get_usecase)):
-    return usecase.create_role(Role)
+def create_role(data: CreateRole, usecase: RoleUseCase = Depends(get_usecase)):
+    return usecase.create_role(data)
 
 @router.patch("/{id}", response_model=Role)
-def update_role(id: int, Role: UpdateRole, usecase: RoleUseCase = Depends(get_usecase)):
-    return usecase.update_role(id, Role)
+def update_role(id: int, data: UpdateRole, usecase: RoleUseCase = Depends(get_usecase)):
+    return usecase.update_role(id, data)
 
 @router.delete("/{id}", response_model=Role)
 def delete_role(id: int, usecase: RoleUseCase = Depends(get_usecase)):

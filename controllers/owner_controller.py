@@ -24,12 +24,12 @@ def get_owner(id: int, usecase: OwnerUseCase = Depends(get_usecase)):
     return usecase.get_owner_by_id(id)
 
 @router.post("/", response_model=Owner)
-def create_owner(owner: CreateOwner, usecase: OwnerUseCase = Depends(get_usecase)):
-    return usecase.create_owner(owner)
+def create_owner(data: CreateOwner, usecase: OwnerUseCase = Depends(get_usecase)):
+    return usecase.create_owner(data)
 
 @router.patch("/{id}", response_model=Owner)
-def update_owner(id: int, owner: UpdateOwner, usecase: OwnerUseCase = Depends(get_usecase)):
-    return usecase.update_owner(id, owner)
+def update_owner(id: int, data: UpdateOwner, usecase: OwnerUseCase = Depends(get_usecase)):
+    return usecase.update_owner(id, data)
 
 @router.delete("/{id}", response_model=Owner)
 def delete_owner(id: int, usecase: OwnerUseCase = Depends(get_usecase)):

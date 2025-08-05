@@ -12,7 +12,7 @@ class OwnerUseCase:
     def get_owner_by_id(self, id: int):
         data = self.service.get_owner(id)
         if not data:
-            raise HTTPException(status_code=400, detail="owner not found")
+            raise HTTPException(status_code=400, detail="Owner not found")
         return data
 
     def create_owner(self, data: CreateOwner):

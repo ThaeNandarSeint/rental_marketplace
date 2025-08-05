@@ -12,5 +12,5 @@ def register_user(data: Register, auth_usecase: AuthUseCase = Depends(get_usecas
     return auth_usecase.register(data)
 
 @router.post("/login", response_model=LoginResponse)
-def register_user(user: Login, auth_usecase: AuthUseCase = Depends(get_usecase)):
-    return auth_usecase.login(user)
+def register_user(data: Login, auth_usecase: AuthUseCase = Depends(get_usecase)):
+    return auth_usecase.login(data)

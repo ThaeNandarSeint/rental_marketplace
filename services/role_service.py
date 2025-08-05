@@ -11,8 +11,8 @@ class RoleService:
     def get_roles(self, queries: GetRolesDto):
         return self.repository.get_all(queries)
 
-    def get_role(self, role_id: int):
-        return self.repository.get_by_id(role_id)
+    def get_role(self, id: int):
+        return self.repository.get_by_id(id)
     
     def get_role_by_name(self, name: str):
         return self.repository.find_one('name', name)
@@ -24,8 +24,8 @@ class RoleService:
 
         return self.repository.create(data)
 
-    def update_role(self, role_id: int, Role: UpdateRole):
-        return self.repository.update(role_id, Role)
+    def update_role(self, id: int, data: UpdateRole):
+        return self.repository.update(id, data)
 
-    def delete_role(self, role_id: int):
-        return self.repository.delete(role_id)
+    def delete_role(self, id: int):
+        return self.repository.delete(id)

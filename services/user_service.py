@@ -11,8 +11,8 @@ class UserService:
     def get_users(self, queries: GetUsersDto):
         return self.repository.get_all(queries)
 
-    def get_user(self, user_id: int):
-        return self.repository.get_by_id(user_id)
+    def get_user(self, id: int):
+        return self.repository.get_by_id(id)
     
     def get_user_by_email(self, email: str):
         return self.repository.find_one('email', email)
@@ -26,8 +26,8 @@ class UserService:
         user_data["password"] = self.password_service.hash(data.password)
         return self.repository.create(user_data)
 
-    def update_user(self, user_id: int, user: UpdateUser):
-        return self.repository.update(user_id, user)
+    def update_user(self, id: int, data: UpdateUser):
+        return self.repository.update(id, data)
 
-    def delete_user(self, user_id: int):
-        return self.repository.delete(user_id)
+    def delete_user(self, id: int):
+        return self.repository.delete(id)

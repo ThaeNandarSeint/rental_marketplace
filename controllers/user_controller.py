@@ -24,12 +24,12 @@ def get_user(id: int, usecase: UserUseCase = Depends(get_usecase)):
     return usecase.get_user_by_id(id)
 
 @router.post("/", response_model=User)
-def create_user(user: CreateUser, usecase: UserUseCase = Depends(get_usecase)):
-    return usecase.create_user(user)
+def create_user(data: CreateUser, usecase: UserUseCase = Depends(get_usecase)):
+    return usecase.create_user(data)
 
 @router.patch("/{id}", response_model=User)
-def update_user(id: int, user: UpdateUser, usecase: UserUseCase = Depends(get_usecase)):
-    return usecase.update_user(id, user)
+def update_user(id: int, data: UpdateUser, usecase: UserUseCase = Depends(get_usecase)):
+    return usecase.update_user(id, data)
 
 @router.delete("/{id}", response_model=User)
 def delete_user(id: int, usecase: UserUseCase = Depends(get_usecase)):

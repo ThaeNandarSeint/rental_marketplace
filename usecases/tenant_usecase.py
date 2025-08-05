@@ -12,7 +12,7 @@ class TenantUseCase:
     def get_tenant_by_id(self, id: int):
         data = self.service.get_tenant(id)
         if not data:
-            raise HTTPException(status_code=400, detail="tenant not found")
+            raise HTTPException(status_code=400, detail="Tenant not found")
         return data
 
     def create_tenant(self, data: CreateTenant):

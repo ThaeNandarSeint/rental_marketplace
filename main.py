@@ -2,11 +2,8 @@ from fastapi import FastAPI, Request, APIRouter
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exceptions import RequestValidationError 
-from controllers import auth_controller, user_controller, tenant_controller, owner_controller, admin_controller, role_controller
+from controllers import auth_controller, user_controller, tenant_controller, owner_controller, admin_controller, role_controller, category_controller
 from middlewares.auth_middleware import AuthMiddleware
-from models.user_model import User
-from models.tenant_model import Tenant
-from models.owner_model import Owner
 from database import Base, engine
 
 Base.metadata.create_all(bind=engine)
@@ -60,5 +57,6 @@ api_router.include_router(tenant_controller.router)
 api_router.include_router(owner_controller.router)
 api_router.include_router(admin_controller.router)
 api_router.include_router(role_controller.router)
+api_router.include_router(category_controller.router)
 
 app.include_router(api_router)

@@ -14,7 +14,7 @@ class AdminUseCase:
     def get_admin_by_id(self, id: int):
         data = self.service.get_admin(id)
         if not data:
-            raise HTTPException(status_code=400, detail="admin not found")
+            raise HTTPException(status_code=400, detail="Admin not found")
         return data
 
     def create_admin(self, data: CreateAdmin):
