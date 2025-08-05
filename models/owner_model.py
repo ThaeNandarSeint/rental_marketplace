@@ -9,3 +9,4 @@ class Owner(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
 
     user = relationship("User", back_populates="owner")
+    properties = relationship("Property", back_populates="owner")

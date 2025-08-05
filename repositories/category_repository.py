@@ -12,7 +12,7 @@ class CategoryRepository:
         if queries.search:
             search = f"%{queries.search}%"
             dbQuery = dbQuery.filter(
-                (Category.name.ilike(search)) | (Category.email.ilike(search))
+                (Category.name.ilike(search))
             )
 
         data = dbQuery.offset(queries.skip).limit(queries.limit).all()
