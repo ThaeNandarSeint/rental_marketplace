@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, UploadFile
 from services.property_service import PropertyService
 from schemas.property_schema import CreateProperty, GetPropertiesDto, UpdateProperty
 
@@ -15,8 +15,8 @@ class PropertyUseCase:
             raise HTTPException(status_code=400, detail="Property not found")
         return data
 
-    def create_property(self, data: CreateProperty):
-        return self.service.create_property(data)
+    def create_property(self, data: CreateProperty, file: UploadFile):
+        return self.service.create_property(data, file)
 
     def update_property(self, id: int, data: UpdateProperty):
         return self.service.update_property(id, data)

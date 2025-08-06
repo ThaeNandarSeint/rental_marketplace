@@ -23,3 +23,4 @@ class Property(Base):
     category = relationship("Category", back_populates="properties")
     owner = relationship("Owner", back_populates="properties")
     location = relationship("Location", back_populates="property", uselist=False)
+    files = relationship("PropertyFile", back_populates="property")
