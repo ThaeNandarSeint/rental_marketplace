@@ -1,7 +1,7 @@
 services:
-  crud_app_db:
+  rental_marketplace_db:
     image: postgres:15
-    container_name: crud_app_db
+    container_name: rental_marketplace_db
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -10,7 +10,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - crud_app_data:/var/lib/postgresql/data
+      - rental_marketplace_data:/var/lib/postgresql/data
 
 volumes:
-  crud_app_data:
+  rental_marketplace_data:
