@@ -9,3 +9,4 @@ class Tenant(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
 
     user = relationship("User", back_populates="tenant")
+    favourite_properties = relationship("FavouriteProperty", back_populates="tenant")

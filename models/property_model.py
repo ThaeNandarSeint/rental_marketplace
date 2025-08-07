@@ -24,3 +24,4 @@ class Property(Base):
     owner = relationship("Owner", back_populates="properties")
     location = relationship("Location", back_populates="property", uselist=False)
     files = relationship("PropertyFile", back_populates="property")
+    favourite_properties = relationship("FavouriteProperty", back_populates="property")
